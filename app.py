@@ -1,6 +1,7 @@
 
 from datetime import datetime
 import os
+from zoneinfo import ZoneInfo
 from flask import Flask, jsonify, request
 import requests
 
@@ -17,8 +18,8 @@ def webhook():
   monto = data.get('monto', 'Sin monto')
   concepto = data.get('concepto', 'Sin concepto')
 
-  # Generamos la fecha y hora actual directamente en Render
-  ahora = datetime.now()
+  # Generamos la fecha y hora ajustada a Argentina
+  ahora = datetime.now(ZoneInfo('America/Argentina/Buenos_Aires'))
   fecha = ahora.strftime('%d de septiembre de %Y')
   hora = ahora.strftime('%H:%M')
 
