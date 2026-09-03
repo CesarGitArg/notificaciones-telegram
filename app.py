@@ -1,3 +1,5 @@
+
+from datetime import datetime
 import os
 from flask import Flask, jsonify, request
 import requests
@@ -12,13 +14,14 @@ CHAT_ID = os.environ.get('CHAT_ID')
 def webhook():
   data = request.json or request.form
 
-  # Capturamos cada dato enviado por MacroDroid de forma individual
   monto = data.get('monto', 'Sin monto')
   concepto = data.get('concepto', 'Sin concepto')
-  fecha = data.get('fecha', '')
-  hora = data.get('hora', '')
 
-  # Armamos el mensaje final con formato HTML para Telegram
+  # Generamos la fecha y hora actual directamente en Render
+  ahora = datetime.now()
+  fecha = ahora.strftime('%d de septiembre de %Y')
+  hora = ahora.strftime('%H:%M')
+
   mensaje = (
       '<b>Depositos</b>\n'
       '<b>INGRESO PERSONAL PAY</b>\n\n'
